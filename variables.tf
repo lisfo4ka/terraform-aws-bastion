@@ -1,4 +1,4 @@
-variable "vpc_id" {} 
+variable "vpc_id" {}
 
 variable "platform_name" {
   type = "string"
