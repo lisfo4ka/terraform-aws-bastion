@@ -13,13 +13,25 @@ variable "ami_id" {
   default = "ami-dd3c0f36"
 }
 
+variable "instance_type" {
+  type        = "string"
+  description = "Instance type for bastion host"
+  default     = "t2.nano"
+}
+
+variable "security_group_ids" {
+  type        = "list"
+  description = "List of security groups for Bastion host"
+}
+
 variable "operator_cidrs" {
   type        = "list"
   description = "CIDRS that is allowed to connect to bastion"
+  default     = []
 }
 
-variable "key_name" {
-  default = "demo-regeneron"
+variable "ssh_key_pair_name" {
+  description = "Key pair name in AWS to use for access to nodes"
 }
 
 variable "tags" {
