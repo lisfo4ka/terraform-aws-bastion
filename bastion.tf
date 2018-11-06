@@ -9,7 +9,8 @@ resource "aws_instance" "bastion" {
 
   tags = "${merge(var.tags, map(
     "Name", "${var.platform_name}-bastion",
-    "kubernetes.io/cluster/${var.platform_name}", "${var.platform_name}")
+    "kubernetes.io/cluster/${var.platform_name}", "${var.platform_name}",
+    "user:tag", "EDP-shared-${var.platform_name}")
   )}"
 }
 
