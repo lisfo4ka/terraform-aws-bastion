@@ -14,6 +14,19 @@ resource "aws_instance" "bastion" {
   )}"
 }
 
+resource "aws_eip" "bastion" {
+  tags = "${merge(var.tags, map(
+   "Name", "${var.platform_name}-bastion",
+   "kubernetes.io/cluster/${var.platform_name}", "${var.platform_name}",
+   "user:tag", "EDP-shared-${var.platform_name}")
+  )}"
+}
+
+resource "aws_eip_association" "eip_bastion" {
+  instance_id   = "${aws_instance.bastion.id}"
+  allocation_id = "${aws_eip.bastion.id}"
+}
+
 resource "aws_security_group" "bastion" {
   count       = "${length(var.security_group_ids) != 0 ? 0 : 1}"
   name        = "${var.platform_name}-bastion"
