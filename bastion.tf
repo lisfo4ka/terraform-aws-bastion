@@ -4,6 +4,7 @@ resource "aws_instance" "bastion" {
   subnet_id                   = "${var.public_subnet_id}"
   associate_public_ip_address = true
   key_name                    = "${var.ssh_key_pair_name}"
+  iam_instance_profile        = "${var.iam_instance_profile}"
 
   vpc_security_group_ids = ["${coalescelist(var.security_group_ids, aws_security_group.bastion.*.id)}"]
 
@@ -16,9 +17,9 @@ resource "aws_instance" "bastion" {
 
 resource "aws_eip" "bastion" {
   tags = "${merge(var.tags, map(
-   "Name", "${var.platform_name}-bastion",
-   "kubernetes.io/cluster/${var.platform_name}", "${var.platform_name}",
-   "user:tag", "EDP-shared-${var.platform_name}")
+    "Name", "${var.platform_name}-bastion",
+    "kubernetes.io/cluster/${var.platform_name}", "${var.platform_name}",
+    "user:tag", "EDP-shared-${var.platform_name}")
   )}"
 }
 

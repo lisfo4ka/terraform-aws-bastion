@@ -34,6 +34,12 @@ variable "ssh_key_pair_name" {
   description = "Key pair name in AWS to use for access to nodes"
 }
 
+variable "iam_instance_profile" {
+  type        = "string"
+  description = "IAM Instance Profile to launch the instance with"
+  default     = ""
+}
+
 variable "tags" {
   type        = "map"
   description = "A map of tags to add to all resources."
